@@ -150,9 +150,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     show: true,
                     backgroundColor: 'rgba(0, 0, 0, 0.8)',
                     borderColor: '#ffffff',
+                    borderStyle: 'solid',
+                    borderWidth: 1,
                     textStyle: {
                         color: '#ffffff'
                     }
+                },
+                itemStyle: {
+                    borderColor: '#ffffff',
+                    borderWidth: 3,
+                    shadowBlur: 10,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
                 },
                 backgroundColor: 'transparent',
                 series: [{
@@ -176,6 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         focus: 'adjacency'
                     }
                 }]
+                
+
             };
 
             chart.setOption(option, true);
