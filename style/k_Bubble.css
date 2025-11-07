@@ -1,82 +1,84 @@
+/* ...existing code... */
+
+/* Nouvelles règles pour l'integration avec la sidebar */
 .graph-container {
-    position: relative;
-    width: 100%;
-    height: 600px;
-    padding: 20px;
-    overflow: hidden;
+    background: none !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.graph-placeholder {
+    background: transparent;
+    margin-bottom: 20px;
 }
 
 .player-buttons {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 10;
-    max-height: 90%;
-    margin-right: 2%;
+    gap: 12px;
+    margin: 25px 0 15px 0;
+    padding: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .player-buttons button {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 18px;
+    border: 2px solid #555;
     background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    color: #ffffff;
+    border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-family: 'Cairo', sans-serif;
-    font-size: 12px;
-    padding: 5%;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    min-width: 80px;
 }
 
-/* Media queries pour le responsive */
+.player-buttons button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #777;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.player-buttons button.active {
+    background: #3498db;
+    border-color: #3498db;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Responsive pour les boutons */
+@media (max-width: 1024px) {
+    .player-buttons {
+        margin: 20px 0 10px 0;
+        padding: 12px;
+        gap: 10px;
+    }
+    
+    .player-buttons button {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+}
+
 @media (max-width: 768px) {
     .player-buttons {
-        right: 10px;
-    }
-
-    .player-buttons button {
-        width: 45px;
-        height: 45px;
-        font-size: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .graph-container {
-        padding: 10px;
-    }
-
-    .player-buttons {
-        right: 5px;
-    }
-
-    .player-buttons button {
-        width: 35px;
-        height: 35px;
-        font-size: 8px;
-        border-width: 1px;
-    }
-}
-
-/* Pour les très petits écrans */
-@media (max-width: 320px) {
-    .player-buttons {
         flex-direction: row;
-        top: auto;
-        bottom: 10px;
-        right: 50%;
-        transform: translateX(50%);
-        gap: 5px;
+        flex-wrap: wrap;
+        gap: 8px;
     }
-
+    
     .player-buttons button {
-        width: 30px;
-        height: 30px;
-        font-size: 7px;
+        flex: 1;
+        min-width: 60px;
+        padding: 8px 12px;
+        font-size: 12px;
     }
 }

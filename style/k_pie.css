@@ -1,0 +1,352 @@
+/* Layout principal avec sidebar côte à côte */
+.main-visualization {
+    display: flex;
+    flex-direction: row; /* Force horizontal sur desktop */
+    gap: 30px;
+    min-height: 600px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.bubble-section {
+    flex: 0 0 60%; /* 60% de la largeur */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+}
+
+.player-stats-section {
+    flex: 1; /* 40% de la largeur restante */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+    min-height: 600px;
+}
+
+/* S'assurer que le contenu est bien espacé */
+.bubble-section .graph-title {
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-family: 'Cairo', sans-serif;
+}
+
+.bubble-section .graph-description {
+    margin-bottom: 20px;
+    color: #cccccc;
+    font-family: 'Cairo', sans-serif;
+}
+
+.bubble-section .graph-placeholder {
+    flex: 1;
+    min-height: 400px;
+    margin-bottom: 0;
+}
+
+.player-stats-title {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Cairo', sans-serif;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.player-stats-subtitle {
+    color: #cccccc;
+    font-size: 14px;
+    font-family: 'Cairo', sans-serif;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+/* Stats du joueur sélectionné */
+.player-individual-stats {
+    animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+
+/* Tooltips */
+.tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: 250px;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.tooltip.show {
+    opacity: 1;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+}
+
+/* Éléments avec tooltip */
+.has-tooltip {
+    cursor: help;
+    position: relative;
+}
+
+.stat-item.has-tooltip:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+.player-stats-title.has-tooltip:hover {
+    color: #4FC3F7;
+    transition: color 0.3s ease;
+}
+
+/* Animation pour les éléments avec tooltip */
+.has-tooltip::after {
+    content: '?';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 16px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.has-tooltip:hover::after {
+    opacity: 1;
+}
+
+
+
+
+
+/* Graphique pie pour le joueur sélectionné */
+.player-pie-chart {
+    width: 100%;
+    height: 350px;
+    margin-top: 20px;
+    position: relative;
+    background-size: cover; /* Changé de "200px 200px" à "cover" */
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Overlay pour assombrir légèrement l'image de fond */
+.player-pie-chart::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* Légèrement plus sombre */
+    z-index: 1;
+    border-radius: 15px;
+}
+
+/* S'assurer que le graphique ECharts est au-dessus */
+.player-pie-chart > div {
+    position: relative;
+    z-index: 2;
+    height: 100% !important;
+}
+
+/* Alternative : utiliser contain pour voir l'image complète sans étirement */
+.player-pie-chart.contain-image {
+    background-size: contain;
+}
+
+/* Classes spécifiques pour chaque joueur avec ajustements individuels */
+.player-pie-chart.canna {
+    background-image: url('../images/Canna.png');
+    background-size: cover; /* Ou contain selon l'image */
+}
+
+.player-pie-chart.yike {
+    background-image: url('../images/Yike.png');
+    background-size: cover;
+}
+
+.player-pie-chart.vladi {
+    background-image: url('../images/Vladi.png');
+    background-size: cover;
+}
+
+.player-pie-chart.caliste {
+    background-image: url('../images/Caliste.png');
+    background-size: cover;
+}
+
+.player-pie-chart.targamas {
+    background-image: url('../images/Targamas.png');
+    background-size: cover;
+}
+
+/* Responsive pour les images de fond */
+@media (max-width: 1024px) {
+    .player-pie-chart {
+        height: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .player-pie-chart {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .player-pie-chart {
+        height: 250px;
+    }
+}
+
+/* ...existing code pour le reste... */
+
+.player-info-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border-left: 4px solid;
+}
+
+.player-role-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-left: 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.player-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-label {
+    color: #cccccc;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Responsive - SEULEMENT pour les écrans MOYENS et PETITS */
+@media (max-width: 1024px) {
+    .main-visualization {
+        flex-direction: column; /* Passer en vertical sur tablettes */
+        gap: 20px;
+    }
+    
+    .bubble-section {
+        flex: none;
+        min-height: 500px;
+    }
+    
+    .player-stats-section {
+        flex: none;
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-visualization {
+        gap: 15px;
+        margin: 10px 0;
+    }
+    
+    .bubble-section,
+    .player-stats-section {
+        padding: 15px;
+        min-height: 350px;
+    }
+    
+    .player-pie-chart {
+        height: 300px;
+    }
+    
+    .player-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bubble-section,
+    .player-stats-section {
+        padding: 12px;
+    }
+    
+    .main-visualization {
+        gap: 10px;
+    }
+}

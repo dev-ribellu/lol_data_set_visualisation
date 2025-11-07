@@ -12,11 +12,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style/index.css">
         <link rel="stylesheet" href="style/k_Bubble.css">
+        <link rel="stylesheet" href="style/k_pie.css">
     <!-- Importation de la librairie ECharts -->
         <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <!-- Importation des scripts -->
         <script src="script/k_Bubble.js"></script>
-
+        <script src="script/k_pie.js"></script>
 </head>
 <body>
     <header>
@@ -34,15 +35,25 @@
         </section>
 
         <section class="graph-container">
-            <h2 class="graph-title">Statistiques des joueurs</h2>
-            <p class="graph-description">Comparaison des statistiques individuelles des joueurs.</p>
-            <div class="graph-placeholder">Emplacement pour le graphique 2</div>
-        </section>
-
-        <section class="graph-container">
-            <h2 class="graph-title">Évolution des résultats</h2>
-            <p class="graph-description">Progression des équipes au fil de la saison.</p>
-            <div class="graph-placeholder">Emplacement pour le graphique 3</div>
+            <h2 class="graph-title">Stats exceptionnelles des joueurs KC</h2>
+            <p class="graph-description">Performance individuelle des joueurs dans leurs domaines d'excellence.</p>
+            <div class="pie-charts-grid">
+                <div class="pie-chart-container">
+                    <div id="canna-pie" class="pie-chart"></div>
+                </div>
+                <div class="pie-chart-container">
+                    <div id="yike-pie" class="pie-chart"></div>
+                </div>
+                <div class="pie-chart-container">
+                    <div id="vladi-pie" class="pie-chart"></div>
+                </div>
+                <div class="pie-chart-container">
+                    <div id="caliste-pie" class="pie-chart"></div>
+                </div>
+                <div class="pie-chart-container">
+                    <div id="targamas-pie" class="pie-chart"></div>
+                </div>
+            </div>
         </section>
     </main>
 

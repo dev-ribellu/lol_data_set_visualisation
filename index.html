@@ -12,14 +12,25 @@
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style/index.css">
         <link rel="stylesheet" href="style/k_Bubble.css">
+        <link rel="stylesheet" href="style/k_pie.css">
+        <link rel="stylesheet" href="style/line.css">
     <!-- Importation de la librairie ECharts -->
         <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <!-- Importation des scripts -->
         <script src="script/k_Bubble.js"></script>
-
+        <script src="script/k_pie.js"></script>
+        <script src="script/line.js"></script>
 </head>
 <body>
     <header>
+       <iframe 
+            src="https://www.youtube-nocookie.com/embed/vrGZDiBKBD8?autoplay=1&mute=1&loop=1&playlist=vrGZDiBKBD8&controls=0&showinfo=0&rel=0&modestbranding=1&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&start=0&end=0&version=3&playerapiid=ytplayer"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen="false"
+            webkitallowfullscreen="false"
+            mozallowfullscreen="false">
+        </iframe>
         <div class="head-container">
             <h1>LEC Winter Season 2025</h1>
             <div class="subtitle">Analyse des performances et statistiques</div>
@@ -27,22 +38,26 @@
     </header>
 
     <main class="container">
-        <section class="graph-container">
-            <h2 class="graph-title">Performance par équipe</h2>
-            <p class="graph-description">Visualisation des performances globales de chaque équipe durant la saison.</p>
-            <div id="bubble-chart" class="graph-placeholder"></div>
+        <section class="main-visualization">
+            <!-- Partie gauche : Bubble Chart -->
+            <div class="bubble-section">
+                <h2 class="graph-title">Performance par équipe</h2>
+                <p class="graph-description">Visualisation des performances globales de chaque équipe durant la saison.</p>
+                <div id="bubble-chart" class="graph-placeholder"></div>
+            </div>
+            
+            <!-- Partie droite : Stats du joueur sélectionné -->
+            <div class="player-stats-section">
+                <div id="player-stats-container">
+                    <h3 class="player-stats-title">Sélectionnez un joueur</h3>
+                    <p class="player-stats-subtitle">Cliquez sur un joueur dans les boutons ci-dessous pour voir ses statistiques détaillées</p>
+                </div>
+            </div>
         </section>
-
         <section class="graph-container">
-            <h2 class="graph-title">Statistiques des joueurs</h2>
-            <p class="graph-description">Comparaison des statistiques individuelles des joueurs.</p>
-            <div class="graph-placeholder">Emplacement pour le graphique 2</div>
-        </section>
-
-        <section class="graph-container">
-            <h2 class="graph-title">Évolution des résultats</h2>
-            <p class="graph-description">Progression des équipes au fil de la saison.</p>
-            <div class="graph-placeholder">Emplacement pour le graphique 3</div>
+            <h2 class="graph-title">Évolution de l'avantage Gold - KC</h2>
+            <p class="graph-description">Progression de l'avantage économique de KC durant les parties (Bleu = Avantage KC, Rouge = Désavantage KC)</p>
+            <div id="gold-line-chart" class="graph-placeholder"></div>
         </section>
     </main>
 

@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Fonction pour créer un symbole circulaire personnalisé avec l'image du champion
-        // Fonction pour créer un symbole circulaire personnalisé avec l'image du champion
     function createChampionSymbol(champion, size, borderColor) {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
@@ -141,6 +140,11 @@ document.addEventListener('DOMContentLoaded', function() {
             game && game.Player === playerName && game.Team === 'KC'
         );
 
+        if (playerGames.length === 0) {
+            console.log(`Aucune donnée trouvée pour ${playerName}`);
+            return [];
+        }
+
         const championStats = {};
 
         // Traitement des données par champion
@@ -229,20 +233,61 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelectorAll('.player-buttons button').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 updateChart(player);
+                
+                // Afficher les stats du joueur à droite
+                if (window.showPlayerStats) {
+                    window.showPlayerStats(player);
+                } else {
+                    console.log('showPlayerStats non disponible encore');
+                    // Réessayer après un délai
+                    setTimeout(() => {
+                        if (window.showPlayerStats) {
+                            window.showPlayerStats(player);
+                        }
+                    }, 500);
+                }
             };
             buttonContainer.appendChild(btn);
         });
 
-        document.querySelector('.graph-container')?.appendChild(buttonContainer);
+        // Ajouter les boutons dans la section bubble
+        const bubbleSection = document.querySelector('.bubble-section');
+        if (bubbleSection) {
+            bubbleSection.appendChild(buttonContainer);
+        } else {
+            // Fallback si la structure n'existe pas encore
+            const graphContainer = document.querySelector('.graph-container');
+            if (graphContainer) {
+                graphContainer.appendChild(buttonContainer);
+            }
+        }
     }
 
     // Mise à jour du graphique
     async function updateChart(playerName) {
         if (!chartContainer || !chart) return;
 
+        console.log(`Mise à jour du graphique pour ${playerName}`);
+
         try {
             const data = await createPlayerData(playerName);
-            if (data.length === 0) return;
+            if (data.length === 0) {
+                console.log(`Aucune donnée pour ${playerName}`);
+                chart.setOption({
+                    title: {
+                        text: `Aucun champion trouvé pour ${playerName}`,
+                        textStyle: {
+                            color: '#ffffff',
+                            fontSize: 16,
+                            fontFamily: 'Cairo'
+                        },
+                        left: 'center',
+                        top: 'middle'
+                    },
+                    series: []
+                });
+                return;
+            }
 
             const option = {
                 title: {
@@ -274,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     layout: 'force',
                     data: data,
                     force: {
-                        repulsion: [100,200],
+                        repulsion: [100, 200],
                         gravity: 0.1,
                         edgeLength: 120,
                         friction: 0.6,
@@ -293,6 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             chart.setOption(option, true);
+            console.log(`Graphique mis à jour avec ${data.length} champions`);
         } catch (error) {
             console.error('Erreur lors de la mise à jour du graphique:', error);
         }
@@ -300,19 +346,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Gestion du redimensionnement
     window.addEventListener('resize', () => {
-        chart?.resize();
+        if (chart) {
+            chart.resize();
+        }
     });
 
     // Chargement initial des données
     fetch('LEC_Winter_Season_2025.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Données JSON chargées:', data.length, 'entrées');
             window.matchData = data;
             createPlayerButtons();
             updateChart(currentPlayer);
+            
+            // Afficher les stats du joueur par défaut après un délai
+            setTimeout(() => {
+                if (window.showPlayerStats) {
+                    window.showPlayerStats(currentPlayer);
+                    console.log(`Stats affichées pour ${currentPlayer}`);
+                }
+            }, 1000);
         })
         .catch(error => {
-            console.error('Erreur de chargement:', error);
-            chartContainer.innerHTML = 'Erreur de chargement des données';
+            console.error('Erreur de chargement des données:', error);
+            if (chartContainer) {
+                chartContainer.innerHTML = `
+                    <div style="color: white; text-align: center; padding: 50px;">
+                        <h3>Erreur de chargement des données</h3>
+                        <p>Vérifiez que le fichier LEC_Winter_Season_2025.json est accessible</p>
+                    </div>
+                `;
+            }
         });
+
+    // Exposer quelques fonctions globalement pour le debug
+    window.debugBubble = {
+        updateChart,
+        createPlayerData,
+        kcPlayers,
+        currentPlayer: () => currentPlayer
+    };
 });

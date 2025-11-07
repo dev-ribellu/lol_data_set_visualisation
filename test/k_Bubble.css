@@ -1,36 +1,44 @@
 .graph-container {
-    position: relative;
-    width: 100%;
-    height: 600px;
-    padding: 20px;
-    overflow: hidden;
+    background: none !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.graph-placeholder {
+    background: transparent;
 }
 
 .player-buttons {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
     display: flex;
-    flex-direction: column;
     gap: 10px;
-    z-index: 10;
-    max-height: 90%;
-    margin-right: 2%;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .player-buttons button {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border: 2px solid #555;
     background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    color: #ffffff;
+    border-radius: 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-family: 'Cairo', sans-serif;
-    font-size: 12px;
-    padding: 5%;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.player-buttons button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #777;
+}
+
+.player-buttons button.active {
+    background: #3498db;
+    border-color: #3498db;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
 }
 
 /* Media queries pour le responsive */
