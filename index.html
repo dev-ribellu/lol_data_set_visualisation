@@ -13,15 +13,33 @@
         <link rel="stylesheet" href="style/index.css">
         <link rel="stylesheet" href="style/k_Bubble.css">
         <link rel="stylesheet" href="style/k_pie.css">
-        <link rel="stylesheet" href="style/line.css">
+        <link rel="stylesheet" href="style/k_radar.css">
     <!-- Importation de la librairie ECharts -->
         <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <!-- Importation des scripts -->
         <script src="script/k_Bubble.js"></script>
         <script src="script/k_pie.js"></script>
-        <script src="script/line.js"></script>
+        <script src="script/k_radar.js"></script>
+        <script>
+            window.addEventListener('load', function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            });
+        </script>
 </head>
 <body>
+    
+    <!-- Écran de chargement -->
+    <div id="loading-screen">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p class="loading-text">Chargement des statistiques...</p>
+        </div>
+    </div>
+
     <header>
        <iframe 
             src="https://www.youtube-nocookie.com/embed/vrGZDiBKBD8?autoplay=1&mute=1&loop=1&playlist=vrGZDiBKBD8&controls=0&showinfo=0&rel=0&modestbranding=1&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&start=0&end=0&version=3&playerapiid=ytplayer"
@@ -32,8 +50,8 @@
             mozallowfullscreen="false">
         </iframe>
         <div class="head-container">
-            <h1>LEC Winter Season 2025</h1>
-            <div class="subtitle">Analyse des performances et statistiques</div>
+            <h1>KC LEC Winter Season 2025</h1>
+            <div class="subtitle">Analyse des performances et statistiques de KarmineCorp</div>
         </div>
     </header>
 
@@ -41,8 +59,8 @@
         <section class="main-visualization">
             <!-- Partie gauche : Bubble Chart -->
             <div class="bubble-section">
-                <h2 class="graph-title">Performance par équipe</h2>
-                <p class="graph-description">Visualisation des performances globales de chaque équipe durant la saison.</p>
+                <h2 class="graph-title">Performance par Joueur</h2>
+                <p class="graph-description">Visualisation des performances globales de chaque joueur durant la saison.</p>
                 <div id="bubble-chart" class="graph-placeholder"></div>
             </div>
             
@@ -54,16 +72,73 @@
                 </div>
             </div>
         </section>
-        <section class="graph-container">
-            <h2 class="graph-title">Évolution de l'avantage Gold - KC</h2>
-            <p class="graph-description">Progression de l'avantage économique de KC durant les parties (Bleu = Avantage KC, Rouge = Désavantage KC)</p>
-            <div id="gold-line-chart" class="graph-placeholder"></div>
+        
+                <section class="graph-container">
+            <h2 class="graph-title">Comparaison des Joueurs KC - Radar Stats</h2>
+            <p class="graph-description">Analyse multi-dimensionnelle des performances moyennes de chaque joueur</p>
+            
+            
+
+            <div id="radar-chart" class="graph-placeholder"></div>
+
+            <!-- Toggles des joueurs -->
+            <div class="player-toggles">
+                <div class="toggle-item" data-player="Canna" data-role="TOP">
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Canna</span>
+                </div>
+                <div class="toggle-item" data-player="Yike" data-role="JUNGLE">
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Yike</span>
+                </div>
+                <div class="toggle-item" data-player="Vladi" data-role="MID">
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Vladi</span>
+                </div>
+                <div class="toggle-item" data-player="Caliste" data-role="ADC">
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Caliste</span>
+                </div>
+                <div class="toggle-item" data-player="Targamas" data-role="SUPPORT">
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Targamas</span>
+                </div>
+            </div>
+
+
+
+            <div class="stat-legends">
+                <div class="stat-item"><strong>KDA:</strong> Kill/Death/Assist Ratio - Efficacité en combat</div>
+                <div class="stat-item"><strong>CS/M:</strong> Creep Score par Minute - Farm par minute</div>
+                <div class="stat-item"><strong>Gold%:</strong> Part de l'or total de l'équipe</div>
+                <div class="stat-item"><strong>DMG%:</strong> Part des dégâts totaux de l'équipe</div>
+                <div class="stat-item"><strong>KP%:</strong> Kill Participation - Implication dans les kills</div>
+            </div>
+
+
+            
         </section>
+
     </main>
 
     <footer>
         <div class="container">
-            <p>© 2025 LEC Winter Season - Tous droits réservés</p>
+            <p>© 2025 LEC Winter Season - Tous droits réservés - Fait par Robin Fligitter</p>
         </div>
     </footer>
 </body>
